@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name='djangorestframework-httpsignature',
-    version='1.0.0',
+    version='1.0.1',
     url='https://github.com/etoccalino/django-rest-framework-httpsignature',
 
     license='LICENSE.txt',
@@ -11,8 +11,8 @@ setup(
     long_description=open('README.rst').read(),
 
     install_requires=[
-        'Django>=1.6.2',
-        'djangorestframework>=2.3.14',
+        'Django>=1.6.2,<1.8',
+        'djangorestframework>=2.3.14,<3.4',
         'httpsig',
     ],
     author='Elvio Toccalino',
