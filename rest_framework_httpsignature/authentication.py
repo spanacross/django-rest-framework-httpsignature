@@ -1,9 +1,12 @@
+import logging
+
 from rest_framework import authentication
 from rest_framework import exceptions
 from httpsig import HeaderSigner
 import re
 
 
+logger = logging.getLogger(__name__)
 class SignatureAuthentication(authentication.BaseAuthentication):
 
     SIGNATURE_RE = re.compile('signature="(.+?)"')
@@ -92,7 +95,9 @@ class SignatureAuthentication(authentication.BaseAuthentication):
         try:
             user, secret = self.fetch_user_data(api_key)
         except TypeError:
-            raise exceptions.AuthenticationFailed('Bad API key')
+            logger.error("Bad API key")
+            return None
+            # raise exceptions.AuthenticationFailed('Bad API key')
 
         # Build string to sign from "headers" part of Signature value.
         computed_string = self.build_signature(api_key, secret, request)
@@ -100,6 +105,8 @@ class SignatureAuthentication(authentication.BaseAuthentication):
             computed_string)
 
         if computed_signature != sent_signature:
-            raise exceptions.AuthenticationFailed('Bad signature')
+            logger.error("Bad API key")
+            return None
+            #raise exceptions.AuthenticationFailed('Bad signature')
 
         return (user, api_key)
