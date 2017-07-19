@@ -11,7 +11,7 @@ setup(
     long_description=open('README.rst').read(),
 
     install_requires=[
-        'Django>=1.6.2,<1.8',
+        'Django>=1.6.2,<1.9',
         'djangorestframework>=2.3.14,<3.4',
         'httpsig',
     ],
